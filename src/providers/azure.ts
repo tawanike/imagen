@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import type { GenerateRequest, GenerateResult, GeneratedImage, ImageProvider, ModelInfo } from '../types.js';
 import { ImagenError } from '../types.js';
-import { aspectToDims } from '../util.js';
+import { aspectToDims, sniffMime } from '../util.js';
 import { generateViaImagesApi } from './openai.js';
 
 export interface AzureOptions {
@@ -198,7 +198,12 @@ async function extractImage(json: Record<string, unknown>, fallbackMime: string)
       const m = /^data:([^;,]+);base64,(.*)$/s.exec(c);
       if (m) return { data: Buffer.from(m[2], 'base64'), mimeType: m[1] };
     }
-    if (c.length > 100) return { data: Buffer.from(c, 'base64'), mimeType: fallbackMime };
+    if (/^[A-Za-z0-9+/=\s]+$/.test(c)) {
+      const data = Buffer.from(c, 'base64');
+      const detected = sniffMime('', data);
+      if (detected.startsWith('image/')) return { data, mimeType: detected };
+      if (c.length > 100) return { data, mimeType: fallbackMime };
+    }
   }
   return undefined;
 }

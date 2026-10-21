@@ -32,6 +32,9 @@ program
     const service = new ImagenService(config);
     const app = createApp(service, config);
     await listen(app, config);
+    if (!['127.0.0.1', 'localhost', '::1', '[::1]'].includes(config.host)) {
+      console.warn(`WARNING: bound to ${config.host}. imagen has no authentication; anyone who can reach this port can spend your API credits.`);
+    }
     console.log(`imagen listening on ${config.publicUrl}`);
     console.log(`  MCP:    ${config.publicUrl}/mcp`);
     console.log(`  A2A:    ${config.publicUrl}/.well-known/agent-card.json`);

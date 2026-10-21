@@ -1,0 +1,49 @@
+name: Provider test report
+description: Tell us how a provider behaved with your own key (works or not)
+title: "[provider] "
+labels: [provider-verification]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        These reports are the most valuable contribution right now. Thank you!
+        **Never paste API keys. Redact your endpoint and resource names.**
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Provider
+      options: [Gemini, OpenAI, Azure Foundry (Image API / gpt-image), Azure Foundry (FLUX.2 / BFL route), Azure Foundry (FLUX 1.1 / Kontext)]
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model or deployment name
+      placeholder: gpt-image-1.5
+    validations:
+      required: true
+  - type: dropdown
+    id: result
+    attributes:
+      label: Result
+      options: [Worked as documented, Worked with caveats, Failed]
+    validations:
+      required: true
+  - type: checkboxes
+    id: tested
+    attributes:
+      label: What did you try?
+      options:
+        - label: Text to image
+        - label: Image editing with reference images
+        - label: Multiple images (n > 1)
+        - label: Aspect ratio / size
+        - label: Transparent background
+        - label: Seed / reproducibility
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Command or tool call, what you saw, and for failures the error text or response shape (redacted).
+    validations:
+      required: true

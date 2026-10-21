@@ -1,0 +1,52 @@
+name: Bug report
+description: Something isn't working as documented
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! **Please redact API keys, endpoints and private prompts.**
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: The CLI command, MCP tool call (with arguments) or A2A request.
+      render: shell
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where did it happen?
+      options: [MCP (stdio), MCP (HTTP), A2A, CLI, Other]
+    validations:
+      required: true
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Provider
+      options: [Gemini, OpenAI, Azure Foundry (Image API), Azure Foundry (FLUX / BFL), Not provider-specific]
+  - type: input
+    id: model
+    attributes:
+      label: Model or deployment
+      placeholder: gemini/gemini-nano-banana-2.1
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "macOS 15, Node 22.11, imagen 0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error output
+      render: text

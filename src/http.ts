@@ -7,6 +7,7 @@ import { createMcpHandler } from '@modelcontextprotocol/server';
 import { toNodeHandler } from '@modelcontextprotocol/node';
 import { buildAgentCard, ImagenAgentExecutor } from './a2a/agent.js';
 import { createMcpServer } from './mcp/server.js';
+import { isLoopbackBind, localOnlyGuard } from './guard.js';
 import type { ImagenService } from './service.js';
 
 export interface HttpOptions {
@@ -18,6 +19,18 @@ export interface HttpOptions {
 export function createApp(service: ImagenService, opts: HttpOptions): express.Express {
   const app = express();
   app.disable('x-powered-by');
+
+  // The server has no authentication, so when bound to loopback refuse foreign Host/Origin headers
+  // (DNS rebinding / cross-site requests). Binding to a non-loopback address is an explicit opt-out.
+  if (isLoopbackBind(opts.host)) {
+    let publicHost: string[] = [];
+    try {
+      publicHost = [new URL(opts.publicUrl).hostname];
+    } catch {
+      /* ignore malformed IMAGEN_PUBLIC_URL */
+    }
+    app.use(localOnlyGuard(publicHost));
+  }
 
   // --- MCP (Streamable HTTP) at /mcp -------------------------------------
   const mcpHandler = createMcpHandler(() => createMcpServer(service), {
