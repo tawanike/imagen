@@ -45,6 +45,7 @@ const GENERATE_CONTENT_ONLY = new Set(['gemini-2.5-flash-image']);
 
 export interface GeminiOptions {
   apiKey?: string;
+  baseUrl?: string;
   useGenerateContent?: boolean;
 }
 
@@ -68,7 +69,12 @@ export class GeminiProvider implements ImageProvider {
   }
 
   private get ai(): GoogleGenAI {
-    if (!this.client) this.client = new GoogleGenAI({ apiKey: this.opts.apiKey });
+    if (!this.client) {
+      this.client = new GoogleGenAI({
+        apiKey: this.opts.apiKey,
+        ...(this.opts.baseUrl ? { httpOptions: { baseUrl: this.opts.baseUrl } } : {}),
+      });
+    }
     return this.client;
   }
 

@@ -146,6 +146,7 @@ real environment variables always take priority):
 | --- | --- | --- |
 | `GEMINI_API_KEY` / `GOOGLE_API_KEY` | | Enables the `gemini` provider. Get a key at [Google AI Studio](https://aistudio.google.com/apikey). |
 | `GEMINI_USE_GENERATE_CONTENT` | off | Set to `1` to use the classic `generateContent` API instead of the Interactions API. |
+| `GEMINI_BASE_URL` | | Optional Gemini-compatible base URL. |
 | `OPENAI_API_KEY` | | Enables the `openai` provider. |
 | `OPENAI_BASE_URL` | | Optional OpenAI-compatible base URL. |
 | `AZURE_FOUNDRY_ENDPOINT` | | Resource endpoint, e.g. `https://my-resource.services.ai.azure.com`. |
@@ -365,7 +366,7 @@ being collected**. This is the most useful thing a new contributor can do.
 | --- | --- | --- |
 | MCP stdio / HTTP, A2A, CLI | Yes | n/a |
 | Model resolution, storage, guard | Yes | n/a |
-| Gemini (Interactions API) | Not yet (see roadmap) | Help wanted |
+| Gemini (Interactions API) | Request/response shape, via a local mock server | Help wanted |
 | OpenAI gpt-image | Request/response shape, via a local mock server | Help wanted |
 | Azure gpt-image (Image API) | Request/response shape, via a local mock server | Help wanted |
 | Azure FLUX.2 (Black Forest Labs route) | Request/response shape, via a local mock server | Help wanted |
@@ -379,7 +380,7 @@ Good places to jump in (see the [issue tracker](https://github.com/tawanike/imag
 
 - [ ] Live-verify and harden each provider adapter
 - [ ] Microsoft Entra ID auth for Azure Foundry
-- [ ] Mock-server tests for the Gemini adapter (OpenAI and Azure already have them)
+- [x] Mock-server tests for the Gemini adapter (OpenAI and Azure already have them)
 - [ ] Streaming progress and partial images over MCP and A2A
 - [ ] Optional bearer-token auth for the HTTP server
 - [ ] Vertex AI backend for Gemini and Imagen models

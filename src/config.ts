@@ -41,7 +41,7 @@ export interface Config {
   port: number;
   /** Public base URL used in A2A artifacts and resource links, e.g. http://127.0.0.1:4747 */
   publicUrl: string;
-  gemini: { apiKey?: string; useGenerateContent: boolean };
+  gemini: { apiKey?: string; baseUrl?: string; useGenerateContent: boolean };
   openai: { apiKey?: string; baseUrl?: string };
   azure: {
     endpoint?: string;
@@ -65,6 +65,7 @@ export function getConfig(): Config {
     publicUrl: env.IMAGEN_PUBLIC_URL ?? `http://${host}:${port}`,
     gemini: {
       apiKey: env.GEMINI_API_KEY ?? env.GOOGLE_API_KEY,
+      baseUrl: env.GEMINI_BASE_URL,
       useGenerateContent: env.GEMINI_USE_GENERATE_CONTENT === '1' || env.GEMINI_USE_GENERATE_CONTENT === 'true',
     },
     openai: { apiKey: env.OPENAI_API_KEY, baseUrl: env.OPENAI_BASE_URL },
