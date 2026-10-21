@@ -1,0 +1,60 @@
+{
+  "name": "imagen",
+  "version": "0.1.0",
+  "description": "Local image-generation server for coding agents: MCP + A2A front-ends over Gemini (Nano Banana), OpenAI (gpt-image) and Azure AI Foundry (gpt-image, FLUX) models.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "imagen": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "mcp": "tsx src/index.ts mcp",
+    "serve": "tsx src/index.ts serve",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@a2a-js/sdk": "^1.3.0",
+    "@google/genai": "^2.30.0",
+    "@modelcontextprotocol/express": "^2.0.2",
+    "@modelcontextprotocol/node": "^2.1.1",
+    "@modelcontextprotocol/server": "^2.3.1",
+    "commander": "^15.0.0",
+    "express": "^5.3.0",
+    "openai": "^7.39.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0",
+    "vitest": "^5.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tawanike/imagen.git"
+  },
+  "keywords": [
+    "mcp",
+    "a2a",
+    "image-generation",
+    "gemini",
+    "nano-banana",
+    "gpt-image",
+    "azure-foundry",
+    "flux",
+    "claude-code"
+  ]
+}

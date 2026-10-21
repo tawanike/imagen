@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "imagen": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/imagen/dist/index.js", "mcp"],
+      "env": {
+        "GEMINI_API_KEY": "${GEMINI_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "IMAGEN_OUTPUT_DIR": "./assets/generated"
+      }
+    }
+  }
+}

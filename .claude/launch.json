@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "imagen",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["serve"],
+      "port": 4747
+    }
+  ]
+}
